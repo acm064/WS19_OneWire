@@ -16,6 +16,11 @@
 #include "tft.h"
 #include "timer.h"
 
+#include "Messung.h"
+#include "SensorConf.h"
+
+
+
 //--- For GPIOs -----------------------------
 //Include instead of "stm32f4xx.h" for
 //compatibility between Simulation and Board

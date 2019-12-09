@@ -11,5 +11,10 @@
 	
 	
 	#include "SensorConf.h"
+	#include "SensorListe.h"
+	#include "SensorComm.h"
+	
+	
+	
 	
 	

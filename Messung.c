@@ -11,6 +11,19 @@
 	
 	
 	#include "Messung.h"
+	#include "SensorListe.h"
+	#include "Output.h"
 	
 	
 	
+	void getTemperature()
+	{
+		
+	}
+	
+	
+	
+  void pullTemperature()
+	{
+		
+	}

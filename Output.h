@@ -10,8 +10,21 @@
   */
 	
 	
+	
+	#include "stdint.h"
+	
+	
+	
 	#ifndef Output
 	#define Output
+	
+	
+	
+	void writeTemperature(int32_t);
+	
+	
+	void writeRomCode(uint64_t *romCode);
+	
 	
 	
 	

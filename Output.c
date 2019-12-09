@@ -13,3 +13,14 @@
 	#include "Output.h"
 	
 	
+	
+	void writeTemperature(int32_t)
+	{
+	
+	}
+	
+	
+	void writeRomCode(uint64_t *romCode)
+	{
+	
+	}
