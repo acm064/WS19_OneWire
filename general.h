@@ -16,6 +16,21 @@
 #ifndef general
 #define general
 
+
+
+#include <stdint.h>
+
+//Definitionen für IO Ports
+#define PG0				0
+#define PG1				1
+
+#define PORT			GPIOG
+
+
+
+
+
+
 #endif
 
 

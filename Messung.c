@@ -16,14 +16,16 @@
 	
 	
 	
-	void getTemperature()
-	{
-		
-	}
+void getTemperature()
+{
+			//ggf von hier aus pull temperature aufrufen/jeweils romcode uebergeben und anschließend ergebnis printen
+}
 	
 	
 	
-  void pullTemperature()
-	{
-		
+void pullTemperature()
+{
+	
+	
+	
 	}
