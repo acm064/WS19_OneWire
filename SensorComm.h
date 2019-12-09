@@ -10,10 +10,34 @@
   */
 	
 	
+	
+	#include "stdint.h"
+	
+	
+	
 	#ifndef SensorComm
 	#define SensorComm
 	
 	
+	
+void writeOne();
+
+
+void writeZero();
+
+
+uint8_t readBit();
+
+
+uint8_t readByte();
+
+
+
+
+void reset();
+
+
+void wait(uint16_t);
 	
 	#endif
 		

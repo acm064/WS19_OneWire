@@ -11,6 +11,21 @@
 	
 	
 	#include "Messung.h"
+	#include "SensorListe.h"
+	#include "Output.h"
 	
 	
 	
+void getTemperature()
+{
+			//ggf von hier aus pull temperature aufrufen/jeweils romcode uebergeben und anschlieﬂend ergebnis printen
+}
+	
+	
+	
+void pullTemperature()
+{
+	
+	
+	
+	}

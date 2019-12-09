@@ -11,8 +11,20 @@
 	
 	
 	
+	#include "stdint.h"
+	
+	
+	
 	#ifndef Messung
 	#define Messung
+	
+	
+	
+	void getTemperature();
+	
+	
+	
+  void pullTemperature();
 	
 	
 	

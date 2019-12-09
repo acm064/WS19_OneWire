@@ -11,5 +11,33 @@
 	
 	
 	#include "SensorConf.h"
+	#include "SensorListe.h"
+	#include "SensorComm.h"
+	
+	
+	
+uint8_t searchSensor()
+{
+
+}
+
+
+uint8_t checkCRC(uint64_t * romNumber)
+{
+
+}
+
+
+uint8_t createSensorListElement()
+{
+
+}
+
+
+uint8_t pullFamilyCode()
+{
+
+}
+	
 	
 	
