@@ -9,11 +9,26 @@
   ******************************************************************************
   */
 	
-	
+	#include <stdint.h>
+  #include <stddef.h>
 	
 	#ifndef	SensorListe
 	#define SensorListe
 	
+  typedef struct sensorListElement
+  {
+    uint64_t romCode;
+    int32_t temperature;
+    struct sensorListElement *next;
+  } sensorListe;
+
+  struct sensorListElement* getLast(struct sensorListElement *listHead);
+
+  uint8_t removeLast(struct sensorListElement *listHead);
+
+  uint8_t addToList(struct sensorListElement *nextSensorListElement, struct sensorListElement *listHead);
+
+  uint8_t removeFromList(struct sensorListElement *nextSensorListElement, struct sensorListElement *listHead);
 	
 	
 	
