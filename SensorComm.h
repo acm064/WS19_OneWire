@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    	SensorComm.h 
   * @author  	Jonathan Backes (Matr.-Nr. 2394482), Tobias Hardjowirogo (Matr.-Nr. 2387188)
-  * @task			WS19_A4 1-Wire Kommunikation       	  
+  * @task		WS19_A4 1-Wire Kommunikation       	  
   * @version 	V1.1
   * @date    	09.12.2019
   * @brief   	
@@ -11,34 +11,48 @@
 	
 	
 	
-	#include "stdint.h"
+#include "stdint.h"
 	
 	
 	
-	#ifndef SensorComm
-	#define SensorComm
+#ifndef _SensorComm_H
+#define _SensorComm_H
 	
 	
 	
-void writeOne();
+void writeOne(void);
 
 
-void writeZero();
+void writeZero(void);
 
 
-uint8_t readBit();
+uint8_t readBit(void);
 
 
-uint8_t readByte();
+uint8_t readByte(void);
 
 
+void writeByte(char);
 
 
-void reset();
+int reset(void);
 
 
-void wait(uint16_t);
+void wait(uint32_t);
 	
-	#endif
+	
+void setOpenDrainMode(void);
+
+
+void setPushPullMode(void);
+
+	
+	
+#endif
+		
+		
+		
+		
+		
 		
 		

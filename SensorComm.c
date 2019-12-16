@@ -12,10 +12,11 @@
 	
 	
 	
-	#include "SensorComm.h"
-	#include "general.h"
-	#include "TI_memory_map.h"
-	#include "timer.h"
+#include "SensorComm.h"
+#include "general.h"
+#include "TI_memory_map.h"
+#include "TI_Lib.h"
+#include "timer.h"
 	
 	
 	
@@ -25,13 +26,13 @@
 void writeOne()
 {
 		//Bus auf "low" setzen
-		GPIOG->BSRRH = (1<<PG0);
+		GPIOG -> BSRRH = (1 << PG0);
 		
 		//6us warten
 		wait(6);
 	
 		//Bus freigeben (auf "high" setzen)
-		GPIOG->BSRRL = (1<<PG0);
+		GPIOG -> BSRRL = (1 << PG0);
 		
 		//64us warten
 		wait(64);
@@ -45,13 +46,13 @@ void writeOne()
 void writeZero()
 {
 		//Bus auf "low" setzen
-		GPIOG->BSRRH = (1<<PG0);
+		GPIOG -> BSRRH = (1 << PG0);
 		
 		//60us warten
 		wait(60);
 	
 		//Bus freigeben (auf "high" setzen)
-		GPIOG->BSRRL = (1<<PG0);
+		GPIOG -> BSRRL = (1 << PG0);
 		
 		//10us warten
 		wait(10);
@@ -65,13 +66,13 @@ void writeZero()
 uint8_t readBit()
 {
 		//Bus auf "low" setzen
-		GPIOG->BSRRH = (1<<PG0);
+		GPIOG -> BSRRH = (1 << PG0);
 		
 		//6us warten
 		wait(6);
 	
 		//Bus freigeben (auf "high" setzen)
-		GPIOG->BSRRL = (1<<PG0);
+		GPIOG -> BSRRL = (1 << PG0);
 		
 		//9us warten
 		wait(9);
@@ -131,26 +132,28 @@ void writeByte(char byte)
 /*
 * @brief	Reset request
 */
-void reset()
+int reset()
 {
 		//Bus auf "low" setzen
-		GPIOG->BSRRH = (1<<PG0);
+		GPIOG -> BSRRH = (1 << PG0);
 		
 		//480us warten
 		wait(480);
 			
 		//Bus freigeben (auf "high" setzen)
-		GPIOG->BSRRL = (1<<PG0);
+		GPIOG -> BSRRL = (1 << PG0);
 		
 		//70us warten
 		wait(70);
 		
 		//Buszustand abfragen
 		int busZustand;
-		busZustand = (GPIOG -> IDR & (0x01 << PG0));
+		busZustand = (GPIOG -> IDR & (1 << PG0));
 	
 		//410us warten
 		wait(410);
+	
+		return busZustand;
 }
 
 
@@ -160,7 +163,7 @@ void reset()
 * 				which counts the timer ticks. (84 MHz --> 84 000 000 ticks/second; 1 second --> 1000 000 microseconds) 
 * @param	uSecs		Amount of microseconds to wait
 */
-void wait(uint16_t uSecs)
+void wait(uint32_t uSecs)
 {
 		uint32_t firstTime = 0;
 		uint32_t nextTime = 0;
@@ -172,9 +175,68 @@ void wait(uint16_t uSecs)
 		{
 				nextTime = getTimeStamp();
 		}
-		
-	
 }
+
+
+
+void setOpenDrainMode()
+{
+		GPIOG -> OTYPER |= (0x1U << PG0);
+}
+
+
+
+void setPushPullMode()
+{
+		GPIOG -> OTYPER &= ~(0x1U << PG0);
+}
+
+
+
+/*
+* Read the ROM-Code if one single Sensor is connected to the system. 
+* Extract the FamilyCode, the SerialNumber and the CRC from the ROM-Code.
+*/
+void readRom() 
+{
+    uint64_t serial = 0;
+    uint8_t arr[8];
+    
+    setOpenDrainMode();
+    reset();
+    writeByte(READ_ROM);
+
+    
+    //First Byte = FamilyCode (8 Bit)
+    uint8_t familycode = readByte();
+		
+		//Reading the next 6 Byte for SerialNumber (48 Bit)
+    int j = 0;    
+    for(int i = 0; i < 48; i = i + 8)
+		{
+        arr[j] = readByte();   //Write bytewise in an array
+        j++;
+    }
+    
+		//Assemble the SerialNumber
+    for(int i = 0; i < 6; i++)
+		{
+        serial = (((uint64_t) arr[i]) << i * 8) | serial; //Wird Byteweise verodert
+        //printf("%X  : %X\n", serial, arr[i]);
+    }
+    
+    //Last Byte = CRC (8 Bit)
+    uint8_t crc = readByte();
+    
+    printf("familycode: %x\n", familycode);
+    printf("serial: %012X\n", serial);
+    printf("crc: %x\n", crc);
+   
+    //TODO: Fehlermeldung wenn kein Sensor angeschlossen
+   
+}
+
+
 
 
 
